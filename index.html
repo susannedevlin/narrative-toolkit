@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Mini Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e1e4e8;
+            padding: 24px;
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: #1f2937;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 12px;
+            color: #4b5563;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .nav-item.active {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 48px 48px 48px 64px;
+            max-width: 900px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .content-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            color: #1f2937;
+        }
+
+        .content-section p {
+            margin-bottom: 16px;
+            color: #4b5563;
+            font-size: 16px;
+        }
+
+        .video-container {
+            margin: 24px 0;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #cbd5e1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .pdf-container {
+            margin: 24px 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .pdf-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #1d4ed8;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .pdf-link:hover {
+            background: #1e40af;
+        }
+
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin: 24px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h1>Your Mini Course</h1>
+            
+            <div class="nav-section">
+                <h3>Getting Started</h3>
+                <a class="nav-item active" onclick="showContent('welcome')">Welcome</a>
+                <a class="nav-item" onclick="showContent('overview')">Course Overview</a>
+            </div>
+
+            <div class="nav-section">
+                <h3>Module 1</h3>
+                <a class="nav-item" onclick="showContent('lesson1')">Lesson 1: Introduction</a>
+                <a class="nav-item" onclick="showContent('lesson2')">Lesson 2: Fundamentals</a>
+                <a class="nav-item" onclick="showContent('lesson3')">Lesson 3: Practice</a>
+            </div>
+
+            <div class="nav-section">
+                <h3>Module 2</h3>
+                <a class="nav-item" onclick="showContent('lesson4')">Lesson 4: Advanced Topics</a>
+                <a class="nav-item" onclick="showContent('lesson5')">Lesson 5: Case Studies</a>
+            </div>
+
+            <div class="nav-section">
+                <h3>Resources</h3>
+                <a class="nav-item" onclick="showContent('downloads')">Downloads</a>
+                <a class="nav-item" onclick="showContent('support')">Support</a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 15%"></div>
+            </div>
+
+            <section id="welcome" class="content-section active">
+                <h1>Welcome to Your Mini Course</h1>
+                <p>This is your comprehensive learning platform. Navigate through the modules using the sidebar to access videos, reading materials, and downloadable resources.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Welcome Video Goes Here
+                        <br><small>Replace with: &lt;video controls&gt; or &lt;iframe&gt; for YouTube/Vimeo</small>
+                    </div>
+                </div>
+                
+                <h2>What You'll Learn</h2>
+                <p>In this course, you'll master the fundamentals and advanced concepts through practical examples and real-world applications.</p>
+                
+                <div class="pdf-container">
+                    <h3>Course Workbook</h3>
+                    <p>Download the complete course workbook with exercises and reference materials.</p>
+                    <a href="#" class="pdf-link">📄 Download PDF</a>
+                </div>
+            </section>
+
+            <section id="overview" class="content-section">
+                <h1>Course Overview</h1>
+                <p>This course is structured into two main modules, each containing multiple lessons with videos, reading materials, and practical exercises.</p>
+                
+                <h2>Course Structure</h2>
+                <p><strong>Module 1:</strong> Foundation concepts and basic implementation</p>
+                <p><strong>Module 2:</strong> Advanced techniques and real-world applications</p>
+                
+                <h2>Prerequisites</h2>
+                <p>No prior experience required. We'll start from the basics and build up gradually.</p>
+            </section>
+
+            <section id="lesson1" class="content-section">
+                <h1>Lesson 1: Introduction</h1>
+                <p>Welcome to your first lesson! Let's start with the fundamentals.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Lesson 1 Video (15 minutes)
+                        <br><small>Replace with your actual video embed</small>
+                    </div>
+                </div>
+                
+                <h2>Key Concepts</h2>
+                <p>In this lesson, we cover the essential building blocks that will form the foundation of your learning journey.</p>
+                
+                <div class="code-block">
+                    // Example code snippet
+                    function example() {
+                        console.log("Hello, course!");
+                    }
+                </div>
+            </section>
+
+            <section id="lesson2" class="content-section">
+                <h1>Lesson 2: Fundamentals</h1>
+                <p>Building on the introduction, we'll dive deeper into the core concepts.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Lesson 2 Video (20 minutes)
+                    </div>
+                </div>
+                
+                <h2>Practice Exercise</h2>
+                <p>Try implementing what you've learned with this hands-on exercise.</p>
+                
+                <div class="pdf-container">
+                    <h3>Exercise Worksheet</h3>
+                    <p>Download the practice worksheet for this lesson.</p>
+                    <a href="#" class="pdf-link">📄 Download Exercise</a>
+                </div>
+            </section>
+
+            <section id="lesson3" class="content-section">
+                <h1>Lesson 3: Practice</h1>
+                <p>Put your knowledge to the test with practical applications.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Lesson 3 Video (25 minutes)
+                    </div>
+                </div>
+            </section>
+
+            <section id="lesson4" class="content-section">
+                <h1>Lesson 4: Advanced Topics</h1>
+                <p>Now we'll explore more sophisticated concepts and techniques.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Lesson 4 Video (30 minutes)
+                    </div>
+                </div>
+            </section>
+
+            <section id="lesson5" class="content-section">
+                <h1>Lesson 5: Case Studies</h1>
+                <p>Learn from real-world examples and see how professionals apply these concepts.</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Lesson 5 Video (35 minutes)
+                    </div>
+                </div>
+            </section>
+
+            <section id="downloads" class="content-section">
+                <h1>Downloads</h1>
+                <p>Access all course materials, worksheets, and additional resources.</p>
+                
+                <div class="pdf-container">
+                    <h3>Complete Course Materials</h3>
+                    <p>All worksheets, reference guides, and bonus materials in one package.</p>
+                    <a href="#" class="pdf-link">📄 Download All Materials</a>
+                </div>
+                
+                <div class="pdf-container">
+                    <h3>Quick Reference Guide</h3>
+                    <p>A handy reference card for quick lookup of key concepts.</p>
+                    <a href="#" class="pdf-link">📄 Download Reference</a>
+                </div>
+            </section>
+
+            <section id="support" class="content-section">
+                <h1>Support</h1>
+                <p>Need help? Here's how to get support for your course.</p>
+                
+                <h2>Frequently Asked Questions</h2>
+                <p>Check our FAQ section for common questions and answers.</p>
+                
+                <h2>Contact Support</h2>
+                <p>Reach out to our support team if you need additional assistance.</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+            
+            // Update progress bar based on current section
+            updateProgress(sectionId);
+        }
+        
+        function updateProgress(sectionId) {
+            const sections = ['welcome', 'overview', 'lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5', 'downloads', 'support'];
+            const currentIndex = sections.indexOf(sectionId);
+            const progress = ((currentIndex + 1) / sections.length) * 100;
+            
+            document.querySelector('.progress-fill').style.width = progress + '%';
+        }
+    </script>
+</body>
+</html>
