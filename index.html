@@ -25,7 +25,7 @@
         }
         
         .sidebar {
-            width: 280px;
+            width: 320px;
             background-color: #2c3e50;
             color: white;
             padding: 20px;
@@ -157,11 +157,10 @@
         
         .main-content {
             flex: 1;
-            margin-left: 280px;
-            padding: 40px;
-            max-width: 1000px;
+            margin-left: 320px;
+            padding: 40px 60px;
             background-color: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: 100vh;
         }
         
         .main-content h1 {
@@ -196,9 +195,10 @@
         .video-container {
             position: relative;
             width: 100%;
+            max-width: 800px;
             height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin: 30px 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio (9/16 = 0.5625) */
+            margin: 30px auto;
             background-color: #f8f9fa;
             border-radius: 8px;
             overflow: hidden;
@@ -253,6 +253,10 @@
             
             .container {
                 flex-direction: column;
+            }
+            
+            .video-container {
+                max-width: 100%;
             }
         }
     </style>
