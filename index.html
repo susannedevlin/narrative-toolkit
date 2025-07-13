@@ -3,200 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Mini Course</title>
+    <title>Narrative Toolkit - Welcome & Course Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Nanum Myeongjo', serif;
             line-height: 1.6;
             color: #333;
-            background-color: #fafafa;
+            background-color: #f8f9fa;
         }
-
+        
         .container {
             display: flex;
             min-height: 100vh;
         }
-
+        
         .sidebar {
             width: 280px;
-            background: white;
-            border-right: 1px solid #e1e4e8;
-            padding: 24px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
             overflow-y: auto;
             position: fixed;
             height: 100vh;
-            z-index: 100;
         }
-
+        
         .sidebar h1 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 32px;
-            color: #1f2937;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #ecf0f1;
         }
-
+        
         .nav-section {
-            margin-bottom: 24px;
+            margin-bottom: 15px;
         }
-
+        
         .nav-section h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #6b7280;
+            font-weight: 700;
+            color: #bdc3c7;
+            margin-bottom: 0;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .nav-item {
-            display: block;
-            padding: 8px 12px;
-            color: #4b5563;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-bottom: 4px;
-            transition: all 0.2s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #34495e;
         }
-
-        .nav-item:hover {
-            background-color: #f3f4f6;
-            color: #1f2937;
+        
+        .nav-section h3:hover {
+            color: #ecf0f1;
         }
-
-        .nav-item.active {
-            background-color: #dbeafe;
-            color: #1d4ed8;
+        
+        .chevron {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
         }
-
+        
+        .chevron.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .nav-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .nav-content.collapsed {
+            max-height: 0;
+        }
+        
+        .nav-content.expanded {
+            max-height: 500px;
+            padding-top: 10px;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-item a {
+            display: block;
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .nav-item a:hover {
+            background-color: #34495e;
+        }
+        
+        .nav-item a.active {
+            background-color: #3498db;
+            font-weight: 700;
+        }
+        
+        .nav-sub-item {
+            margin-left: 15px;
+            margin-bottom: 3px;
+        }
+        
+        .nav-sub-item a {
+            font-size: 0.85rem;
+            color: #bdc3c7;
+            padding: 6px 10px;
+        }
+        
+        .nav-sub-sub-item {
+            margin-left: 30px;
+            margin-bottom: 2px;
+        }
+        
+        .nav-sub-sub-item a {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            padding: 4px 8px;
+        }
+        
+        .status-indicator {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+        
+        .status-live {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .status-progress {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .status-indicative {
+            background-color: #7f8c8d;
+            color: white;
+        }
+        
         .main-content {
             flex: 1;
             margin-left: 280px;
-            padding: 48px 48px 48px 64px;
-            max-width: 900px;
+            padding: 40px;
+            max-width: 1000px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
-
-        .content-section {
-            display: none;
-            animation: fadeIn 0.3s ease-in;
+        
+        .main-content h1 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
-
-        .content-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-section h1 {
-            font-size: 32px;
+        
+        .main-content h2 {
             font-weight: 700;
-            margin-bottom: 16px;
-            color: #1f2937;
+            font-size: 2rem;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
         }
-
-        .content-section h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 32px 0 16px 0;
-            color: #1f2937;
+        
+        .main-content h3 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
-
-        .content-section p {
-            margin-bottom: 16px;
-            color: #4b5563;
-            font-size: 16px;
+        
+        .main-content p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
-
+        
         .video-container {
-            margin: 24px 0;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 16px;
-        }
-
-        .video-placeholder {
+            position: relative;
             width: 100%;
-            height: 300px;
-            background: #cbd5e1;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .pdf-container {
-            margin: 24px 0;
-            background: white;
-            border: 1px solid #e2e8f0;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            background-color: #f8f9fa;
             border-radius: 8px;
-            padding: 16px;
-        }
-
-        .pdf-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 12px 16px;
-            background: #1d4ed8;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-
-        .pdf-link:hover {
-            background: #1e40af;
-        }
-
-        .code-block {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 16px;
-            margin: 16px 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            overflow-x: auto;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #e5e7eb;
-            border-radius: 2px;
-            margin: 24px 0;
             overflow: hidden;
         }
-
-        .progress-fill {
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: #10b981;
-            border-radius: 2px;
-            transition: width 0.3s ease;
         }
-
+        
+        .course-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .nav-button {
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .nav-button.disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
                 position: relative;
                 height: auto;
             }
-
+            
             .main-content {
                 margin-left: 0;
-                padding: 24px;
+                padding: 20px;
+            }
+            
+            .container {
+                flex-direction: column;
             }
         }
     </style>
@@ -204,208 +260,186 @@
 <body>
     <div class="container">
         <nav class="sidebar">
-            <h1>Your Mini Course</h1>
+            <h1>Narrative Toolkit</h1>
             
             <div class="nav-section">
-                <h3>Getting Started</h3>
-                <a class="nav-item active" onclick="showContent('welcome')">Welcome</a>
-                <a class="nav-item" onclick="showContent('overview')">Course Overview</a>
+                <h3 onclick="toggleSection(this)">
+                    Getting Started
+                    <span class="chevron">▶</span>
+                </h3>
+                <div class="nav-content collapsed">
+                    <div class="nav-item">
+                        <a href="index.html" class="active">Welcome & Course Overview</a>
+                    </div>
+                </div>
             </div>
-
+            
             <div class="nav-section">
-                <h3>Module 1</h3>
-                <a class="nav-item" onclick="showContent('lesson1')">Lesson 1: Introduction</a>
-                <a class="nav-item" onclick="showContent('lesson2')">Lesson 2: Fundamentals</a>
-                <a class="nav-item" onclick="showContent('lesson3')">Lesson 3: Practice</a>
+                <h3 onclick="toggleSection(this)">
+                    Module 1 - Choose Your Narrative
+                    <span class="chevron expanded">▶</span>
+                </h3>
+                <div class="nav-content expanded">
+                    <div class="nav-item">
+                        <a href="module1-overview.html">Overview</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="why-narratives-matter.html">Why Narratives Matter</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="common-challenges.html">Common Challenges</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="step1-narrative-motivation.html">Step 1: Narrative Motivation</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="step2-narrative-themes.html">Step 2: Narrative Themes</a>
+                    </div>
+                    <div class="nav-sub-item">
+                        <a href="step2-framework.html">Framework</a>
+                    </div>
+                    <div class="nav-sub-item">
+                        <a href="step2-in-progress.html">In Progress <span class="status-indicator status-progress">WIP</span></a>
+                    </div>
+                    <div class="nav-sub-sub-item">
+                        <a href="step2-in-progress-case-study.html">Case Study</a>
+                    </div>
+                    <div class="nav-sub-item">
+                        <a href="step2-point-of-view.html">Point of View</a>
+                    </div>
+                    <div class="nav-sub-sub-item">
+                        <a href="step2-pov-case-study.html">Case Study</a>
+                    </div>
+                    <div class="nav-sub-item">
+                        <a href="step2-aspiration-aesthetic.html">Aspiration & Aesthetic</a>
+                    </div>
+                    <div class="nav-sub-sub-item">
+                        <a href="step2-aspiration-case-study.html">Case Study</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="step3-narrative-form.html">Step 3: Narrative Form</a>
+                    </div>
+                </div>
             </div>
-
+            
             <div class="nav-section">
-                <h3>Module 2</h3>
-                <a class="nav-item" onclick="showContent('lesson4')">Lesson 4: Advanced Topics</a>
-                <a class="nav-item" onclick="showContent('lesson5')">Lesson 5: Case Studies</a>
+                <h3 onclick="toggleSection(this)">
+                    Worked Example
+                    <span class="chevron">▶</span>
+                </h3>
+                <div class="nav-content collapsed">
+                    <div class="nav-item">
+                        <a href="linkedin-narrative-experiment.html">LinkedIn Narrative Experiment</a>
+                    </div>
+                </div>
             </div>
-
+            
             <div class="nav-section">
-                <h3>Resources</h3>
-                <a class="nav-item" onclick="showContent('downloads')">Downloads</a>
-                <a class="nav-item" onclick="showContent('support')">Support</a>
+                <h3 onclick="toggleSection(this)">
+                    Module 2 - Curation
+                    <span class="chevron">▶</span>
+                </h3>
+                <div class="nav-content collapsed">
+                    <div class="nav-item">
+                        <a href="module2-indicative.html">Indicative Outline <span class="status-indicator status-indicative">Coming Soon</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <h3 onclick="toggleSection(this)">
+                    Module 3 - Creation
+                    <span class="chevron">▶</span>
+                </h3>
+                <div class="nav-content collapsed">
+                    <div class="nav-item">
+                        <a href="module3-indicative.html">Indicative Outline <span class="status-indicator status-indicative">Coming Soon</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <h3 onclick="toggleSection(this)">
+                    Next Steps
+                    <span class="chevron">▶</span>
+                </h3>
+                <div class="nav-content collapsed">
+                    <div class="nav-item">
+                        <a href="next-steps-indicative.html">Indicative Outline <span class="status-indicator status-indicative">Coming Soon</span></a>
+                    </div>
+                </div>
             </div>
         </nav>
-
+        
         <main class="main-content">
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 15%"></div>
+            <h1>Welcome to the Narrative Toolkit</h1>
+            
+            <p>Transform how you tell your story with practical frameworks and proven strategies for crafting compelling narratives that connect, convince, and inspire action.</p>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
             </div>
-
-            <section id="welcome" class="content-section active">
-                <h1>Welcome to Your Mini Course</h1>
-                <p>This is your comprehensive learning platform. Navigate through the modules using the sidebar to access videos, reading materials, and downloadable resources.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Welcome Video Goes Here
-                        <br><small>Replace with: &lt;video controls&gt; or &lt;iframe&gt; for YouTube/Vimeo</small>
-                    </div>
-                </div>
-                
-                <h2>What You'll Learn</h2>
-                <p>In this course, you'll master the fundamentals and advanced concepts through practical examples and real-world applications.</p>
-                
-                <div class="pdf-container">
-                    <h3>Course Workbook</h3>
-                    <p>Download the complete course workbook with exercises and reference materials.</p>
-                    <a href="#" class="pdf-link">📄 Download PDF</a>
-                </div>
-            </section>
-
-            <section id="overview" class="content-section">
-                <h1>Course Overview</h1>
-                <p>This course is structured into two main modules, each containing multiple lessons with videos, reading materials, and practical exercises.</p>
-                
-                <h2>Course Structure</h2>
-                <p><strong>Module 1:</strong> Foundation concepts and basic implementation</p>
-                <p><strong>Module 2:</strong> Advanced techniques and real-world applications</p>
-                
-                <h2>Prerequisites</h2>
-                <p>No prior experience required. We'll start from the basics and build up gradually.</p>
-            </section>
-
-            <section id="lesson1" class="content-section">
-                <h1>Lesson 1: Introduction</h1>
-                <p>Welcome to your first lesson! Let's start with the fundamentals.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Lesson 1 Video (15 minutes)
-                        <br><small>Replace with your actual video embed</small>
-                    </div>
-                </div>
-                
-                <h2>Key Concepts</h2>
-                <p>In this lesson, we cover the essential building blocks that will form the foundation of your learning journey.</p>
-                
-                <div class="code-block">
-                    // Example code snippet
-                    function example() {
-                        console.log("Hello, course!");
-                    }
-                </div>
-            </section>
-
-            <section id="lesson2" class="content-section">
-                <h1>Lesson 2: Fundamentals</h1>
-                <p>Building on the introduction, we'll dive deeper into the core concepts.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Lesson 2 Video (20 minutes)
-                    </div>
-                </div>
-                
-                <h2>Practice Exercise</h2>
-                <p>Try implementing what you've learned with this hands-on exercise.</p>
-                
-                <div class="pdf-container">
-                    <h3>Exercise Worksheet</h3>
-                    <p>Download the practice worksheet for this lesson.</p>
-                    <a href="#" class="pdf-link">📄 Download Exercise</a>
-                </div>
-            </section>
-
-            <section id="lesson3" class="content-section">
-                <h1>Lesson 3: Practice</h1>
-                <p>Put your knowledge to the test with practical applications.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Lesson 3 Video (25 minutes)
-                    </div>
-                </div>
-            </section>
-
-            <section id="lesson4" class="content-section">
-                <h1>Lesson 4: Advanced Topics</h1>
-                <p>Now we'll explore more sophisticated concepts and techniques.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Lesson 4 Video (30 minutes)
-                    </div>
-                </div>
-            </section>
-
-            <section id="lesson5" class="content-section">
-                <h1>Lesson 5: Case Studies</h1>
-                <p>Learn from real-world examples and see how professionals apply these concepts.</p>
-                
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        📹 Lesson 5 Video (35 minutes)
-                    </div>
-                </div>
-            </section>
-
-            <section id="downloads" class="content-section">
-                <h1>Downloads</h1>
-                <p>Access all course materials, worksheets, and additional resources.</p>
-                
-                <div class="pdf-container">
-                    <h3>Complete Course Materials</h3>
-                    <p>All worksheets, reference guides, and bonus materials in one package.</p>
-                    <a href="#" class="pdf-link">📄 Download All Materials</a>
-                </div>
-                
-                <div class="pdf-container">
-                    <h3>Quick Reference Guide</h3>
-                    <p>A handy reference card for quick lookup of key concepts.</p>
-                    <a href="#" class="pdf-link">📄 Download Reference</a>
-                </div>
-            </section>
-
-            <section id="support" class="content-section">
-                <h1>Support</h1>
-                <p>Need help? Here's how to get support for your course.</p>
-                
-                <h2>Frequently Asked Questions</h2>
-                <p>Check our FAQ section for common questions and answers.</p>
-                
-                <h2>Contact Support</h2>
-                <p>Reach out to our support team if you need additional assistance.</p>
-            </section>
+            
+            <h2>What You'll Learn</h2>
+            
+            <p>This course is designed to help you master the art of narrative construction through three key modules:</p>
+            
+            <h3>Module 1: Choose Your Narrative</h3>
+            <p>Learn to identify and develop the core narrative that will resonate with your audience. We'll explore why narratives matter, common challenges in storytelling, and walk through a three-step process to define your narrative motivation, themes, and form.</p>
+            
+            <h3>Module 2: Curation (Coming Soon)</h3>
+            <p>Discover how to select and organize the right stories, examples, and evidence to support your narrative. Learn what to include, what to leave out, and how to structure your content for maximum impact.</p>
+            
+            <h3>Module 3: Creation (Coming Soon)</h3>
+            <p>Put your narrative into action across different formats and platforms. From writing to speaking to visual storytelling, learn how to adapt your narrative for various contexts and audiences.</p>
+            
+            <h2>How This Course Works</h2>
+            
+            <p>Each module builds on the previous one, taking you from foundational concepts to practical application. You'll work through frameworks, examine real case studies, and see how these principles apply in professional contexts.</p>
+            
+            <p>The course includes a worked example showing how these principles were applied to create a successful LinkedIn narrative experiment, giving you concrete insight into the process.</p>
+            
+            <h2>Who This Course Is For</h2>
+            
+            <p>This course is ideal for professionals, entrepreneurs, creatives, and anyone who needs to communicate their value, vision, or ideas more effectively. Whether you're building a personal brand, pitching a project, or simply want to become a more compelling storyteller, this toolkit will serve you well.</p>
+            
+            <div class="course-navigation">
+                <div></div>
+                <a href="module1-overview.html" class="nav-button">Start Module 1 →</a>
+            </div>
         </main>
     </div>
-
+    
     <script>
-        function showContent(sectionId) {
-            // Hide all content sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            const chevron = element.querySelector('.chevron');
             
-            // Remove active class from all nav items
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Add active class to clicked nav item
-            event.target.classList.add('active');
-            
-            // Update progress bar based on current section
-            updateProgress(sectionId);
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                content.classList.add('expanded');
+                chevron.classList.add('expanded');
+            } else {
+                content.classList.remove('expanded');
+                content.classList.add('collapsed');
+                chevron.classList.remove('expanded');
+            }
         }
         
-        function updateProgress(sectionId) {
-            const sections = ['welcome', 'overview', 'lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5', 'downloads', 'support'];
-            const currentIndex = sections.indexOf(sectionId);
-            const progress = ((currentIndex + 1) / sections.length) * 100;
-            
-            document.querySelector('.progress-fill').style.width = progress + '%';
-        }
+        // Auto-expand section containing active page
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-item a.active');
+            if (activeLink) {
+                let section = activeLink.closest('.nav-section');
+                if (section) {
+                    const content = section.querySelector('.nav-content');
+                    const chevron = section.querySelector('.chevron');
+                    content.classList.remove('collapsed');
+                    content.classList.add('expanded');
+                    chevron.classList.add('expanded');
+                }
+            }
+        });
     </script>
 </body>
 </html>
